@@ -106,8 +106,9 @@ async def store_image(
 
         file_path = f"{folder}/{image_name}"
         
+        image_array = np.frombuffer(image, np.uint8)
         img = cv2.imdecode(
-                np.frombuffer(image, np.uint8),
+                image_array,
                 cv2.IMREAD_COLOR
             )
         image_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -115,7 +116,7 @@ async def store_image(
         if should_detect_faces:
             await detect_faces(image_rgb)
 
-        success, encoded_image = await resize_image(image)
+        success, encoded_image = await resize_image(image_array)
         
 
         with open(file_path, "wb") as f:
