@@ -1,4 +1,4 @@
-from os import chmod, mkdir, path
+from os import chmod, mkdir, path, remove
 import cv2
 import mediapipe as mp
 import numpy as np
@@ -126,5 +126,17 @@ async def store_image(
             chmod(file_path,0o644)
         
         return f"{masking_folder}/{image_name}"
+    except Exception as exc:
+        raise Exception(str(exc))
+
+
+async def delete_image(
+        image_path: str
+):
+    try:
+        if path.exists(image_path):
+            remove(image_path)
+            return True
+        return False
     except Exception as exc:
         raise Exception(str(exc))
