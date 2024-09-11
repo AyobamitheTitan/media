@@ -1,1 +1,1 @@
-from .images import store_image
+from .images import store_image, delete_image
