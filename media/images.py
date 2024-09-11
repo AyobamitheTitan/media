@@ -36,6 +36,7 @@ async def resize_image(
 
         return success, encoded_data
     except Exception as exc:
+        print("From the resize function")
         raise Exception(str(exc))
 
 
