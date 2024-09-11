@@ -1,7 +1,7 @@
 from os import chmod, mkdir, path
 import cv2
 import mediapipe as mp
-
+import numpy as np
 
 async def resize_image(
         image, 
@@ -106,7 +106,10 @@ async def store_image(
 
         file_path = f"{folder}/{image_name}"
         
-        img = cv2.imdecode(image, cv2.IMREAD_COLOR)
+        img = cv2.imdecode(
+                np.frombuffer(image, np.uint8),
+                cv2.IMREAD_COLOR
+            )
         image_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
         if should_detect_faces:
